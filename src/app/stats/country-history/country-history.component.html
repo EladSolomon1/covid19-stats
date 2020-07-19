@@ -1,0 +1,55 @@
+<form [formGroup]="searchForm" (ngSubmit)="search()"  fxLayoutAlign="center center" >
+    <mat-form-field>
+        <input #nameInput type="text" placeholder="Country" aria-label="Country name" matInput
+                formControlName="countryName" [matAutocomplete]="auto">
+        <mat-icon (click)="nameInput.value=''" matSuffix>clear</mat-icon>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let country of filteredCountries | async" [value]="country">
+            {{country}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <button mat-mini-fab color="primary" aria-label="Search button" [disabled]="!searchForm.valid">
+        <mat-icon>search</mat-icon>
+    </button>
+</form>
+
+<div fxLayoutAlign="center center"><mat-spinner *ngIf="isLoading"></mat-spinner></div>
+
+<div [hidden]="!isSearched" fxLayout="column" fxLayoutAlign="center center">
+
+  <table  mat-table [dataSource]="dataSource" matSort (matSortChange)="sortChange($event)">
+  
+    <ng-container matColumnDef="date" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.Date |date:'shortDate'}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="confirmed">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Confirmed </th>
+      <td mat-cell *matCellDef="let element"> {{element.Confirmed| number}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="active">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Active </th>
+      <td mat-cell *matCellDef="let element"> {{element.Active| number}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="recovered">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Recovered </th>
+      <td mat-cell *matCellDef="let element"> {{element.Recovered| number}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deaths">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Deaths </th>
+      <td mat-cell *matCellDef="let element"> {{element.Deaths| number}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+
+  </table>
+  <mat-paginator [hidden]="!isSearched" #paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  <iframe class="iframe d-none d-sm-block" src="https://ourworldindata.org/grapher/covid-daily-vs-total-cases"></iframe>
+</div>

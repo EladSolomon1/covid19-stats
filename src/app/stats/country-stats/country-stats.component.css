@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+}
+.mat-form-field {
+  background-color: #fff; 
+  opacity: 0.9;
+  font-size: 14px;
+}
+mat-paginator{
+    width: 100%;
+}
+.mat-cell,.mat-header-cell{
+  text-align: center;
+}

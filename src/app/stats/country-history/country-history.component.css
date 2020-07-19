@@ -1,0 +1,25 @@
+  table {
+    width: 100%;
+  }
+  .mat-form-field {
+    background-color: #fff; 
+    opacity: 0.9; 
+    margin-right: 20px;
+    font-size: 14px;
+    width: 200px;
+  }
+  mat-paginator{
+    width: 100%;
+  }
+  .mat-cell,.mat-header-cell{
+    text-align: center;
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  .iframe{
+    width: 700px;
+    height: 550px; 
+    border: 0px none;
+  }
